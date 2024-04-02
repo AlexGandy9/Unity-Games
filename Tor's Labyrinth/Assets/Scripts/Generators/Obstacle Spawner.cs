@@ -10,7 +10,8 @@ public class ObstacleSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        obsTemplates = GameObject.FindGameObjectWithTag("Obstacles").GetComponent<ObstacleTemplates>();
+        obsTemplates = GameObject.FindGameObjectWithTag("ObstaclesTemplate").GetComponent<ObstacleTemplates>();
+        print(obsTemplates);
         Spawn();
     }
 
@@ -35,13 +36,13 @@ public class ObstacleSpawner : MonoBehaviour
                     Instantiate(obsTemplates.cupboardR, transform.position, obsTemplates.cupboardR.transform.rotation);
                 }
             }
-        }else if (this.gameObject.name.Contains("Obs")){
+        }/*else if (this.gameObject.name.Contains("Obs")){
             rand = Random.Range(0, 5);
             if (rand == 0){
                 rand = Random.Range(0, obsTemplates.obs.Length);
                 Instantiate(obsTemplates.obs[rand], transform.position + new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)), Quaternion.Euler(0, Random.Range(0, 360f), 0));
             }
-        }
+        }*/
         Destroy(this.gameObject);
     }
 }

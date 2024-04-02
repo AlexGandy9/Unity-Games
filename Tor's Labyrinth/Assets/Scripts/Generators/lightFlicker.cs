@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class lightFlicker : MonoBehaviour
 {
-    public Light light;
+    public Light lightSource;
     // Update is called once per frame
     void Start(){
         RenderSettings.ambientLight = Color.black;
@@ -12,11 +12,11 @@ public class lightFlicker : MonoBehaviour
     void Update()
     {
         int rand = Random.Range(0, 500);
-        if (rand < 2 && light.enabled){
+        if (rand < 2 && lightSource.enabled){
             //play some flicker sound? (should be quiet)
-            light.enabled = false;
-        }else if (rand < 40 && !light.enabled){
-            light.enabled = true;
+            lightSource.enabled = false;
+        }else if (rand < 40 && !lightSource.enabled){
+            lightSource.enabled = true;
         }
     }
 }

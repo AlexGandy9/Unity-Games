@@ -15,11 +15,6 @@ public class HitTrap : MonoBehaviour
                 waitTime -= Time.deltaTime;
             }
         }
-        if (isSlowed){
-            print("SLOWED DOWN");
-        }else {
-            print("SPED UP");
-        }
 
         if (waitTime <= 0 && !isSlowed){
             waitTime = 3f;

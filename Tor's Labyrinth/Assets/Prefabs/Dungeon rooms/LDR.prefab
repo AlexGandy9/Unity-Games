@@ -32,14 +32,12 @@ Transform:
   m_Children:
   - {fileID: 7358084939898970250}
   - {fileID: 7663960613560049203}
-  - {fileID: 6421272475421330196}
   - {fileID: 6894104329693489650}
   - {fileID: 5159147351910238340}
   - {fileID: 2667898487516950736}
   - {fileID: 6237202195368579596}
   - {fileID: 2533960433672078597}
   - {fileID: 8219689996986724237}
-  - {fileID: 3566491969282184615}
   - {fileID: 7733769665379322921}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -83,11 +81,11 @@ Transform:
   m_GameObject: {fileID: 969398351612127242}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.50000006, z: 0}
-  m_LocalScale: {x: 10, y: 0.099999994, z: 10}
+  m_LocalPosition: {x: 0, y: -59.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2355938146849386017}
+  m_Father: {fileID: 2667898487516950736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1544580739372382624
 MeshFilter:
@@ -166,15 +164,27 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2355938146849386017}
+    m_TransformParent: {fileID: 2667898487516950736}
     m_Modifications:
+    - target: {fileID: 4046089059528284884, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4046089059528284884, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4046089059528284884, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4046089059528284884, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4046089059528284884, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -54.8
       objectReference: {fileID: 0}
     - target: {fileID: 4046089059528284884, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
       propertyPath: m_LocalPosition.z
@@ -215,6 +225,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7202115241726953690, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
+    - {fileID: 7029556657926301046, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
+    - {fileID: 3472533137624417838, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
+    - {fileID: 6325736671267976746, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b70910e80ceefe4bbdb069a7c8eda25, type: 3}
@@ -788,7 +801,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6152026645889334305, guid: 374cb8db6ceaf3942ad5a5f410dc6948, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3566491969282184615}
+    - targetCorrespondingSourceObject: {fileID: 6152026645889334305, guid: 374cb8db6ceaf3942ad5a5f410dc6948, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6421272475421330196}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 374cb8db6ceaf3942ad5a5f410dc6948, type: 3}
 --- !u!4 &2667898487516950736 stripped
@@ -822,19 +841,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -842,7 +861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -888,19 +907,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299941758828205587, guid: 6ff8b77029b676847a6a8f645b7cd59e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

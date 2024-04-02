@@ -5,12 +5,20 @@ using UnityEngine;
 public class openDoor : MonoBehaviour
 {
     [SerializeField] GameObject openingDoor;
+    [SerializeField] AudioSource creak;
     // Update is called once per frame
-    void Update()
+    void Start(){
+        print(openingDoor.transform.localRotation);
+        openingDoor.transform.localRotation = new Quaternion(0, 0.70711f, 0, -0.70711f);
+    }
+    void FixedUpdate()
     {
         if (RoomTemplates.navMeshBuilt){
             if (openingDoor.transform.localRotation.y >= 0.2f){
-                openingDoor.transform.Rotate(0, openingDoor.transform.localRotation.y - (0.0000001f * (openingDoor.transform.localRotation.y - 0.1f)), 0);
+                if (!creak.isPlaying){
+                    creak.Play();
+                }
+                openingDoor.transform.Rotate(0, openingDoor.transform.localRotation.y - (0.35f * (openingDoor.transform.localRotation.y)), 0);
             }
         }
     }
