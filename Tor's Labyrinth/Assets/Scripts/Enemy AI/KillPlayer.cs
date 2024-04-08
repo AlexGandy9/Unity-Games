@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 public class KillPlayer : MonoBehaviour
 {
     public static bool isKilled;
+    public AudioSource attackSound;
 
     void Awake(){
         isKilled = false;
     }
-    void Update(){
-    }
+    
     private void OnTriggerEnter(Collider other){
         if (other.CompareTag("Player")){
             if (EnemyAI.animator.GetBool("isAttacking") && EnemyAI.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.46f && EnemyAI.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.7f){

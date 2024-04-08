@@ -10,8 +10,6 @@ public class RoomSpawner : MonoBehaviour
     private RoomTemplates templates;
     private int rand;
     public bool spawned = false;
-    private bool spawnedLandmark1 = false;
-
     private GameObject startRoom;
     private GameObject[] landmark1;
     private static bool l1 = false;
@@ -38,7 +36,7 @@ public class RoomSpawner : MonoBehaviour
         landmark1 = templates.landmark1;
         landmark2 = templates.landmark2;
 
-        Invoke("Spawn", 0.2f);
+        Invoke("Spawn", 0.3f);
     }
 
     // Update is called once per frame
@@ -49,14 +47,14 @@ public class RoomSpawner : MonoBehaviour
                 Instantiate(startRoom, transform.position, startRoom.transform.rotation);
                 roomsSpawned = 0;
             }
-            if ((isSpace.isSpace && roomsSpawned >= 10 && !l1)){
+            if ((isSpace.isSpace && roomsSpawned >= 24 && !l1)){
                 Instantiate(landmark1[openingDirection-1], transform.position, landmark1[openingDirection-1].transform.rotation);
                 l1 = true;
             } else if (isSpace.isSpace && l2T < 2 && Vector3.Distance(transform.position, l2Pos) > 100f){
                 Instantiate(landmark2[openingDirection-1], transform.position, landmark2[openingDirection-1].transform.rotation);
                 l2Pos = transform.position;
                 l2T++;
-            } else if (roomsSpawned <= 75){
+            } else if (roomsSpawned <= 50){
                 rand = Random.Range(1, 6);
                 SpawnRoom(rand);        
             }else {

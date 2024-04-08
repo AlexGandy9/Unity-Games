@@ -134,19 +134,23 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(transform.position);
         if(!alreadyAttacked){
             animator.SetBool("isAttacking", true);
-            attackSound.Play();
             alreadyAttacked = true;
+            Invoke("PlaySound", 0.1f);
             Invoke("ResetAttack", timeBetweenAttacks);
         }else {
             animator.SetBool("isWalking", true);
         }
     }
 
+    private void PlaySound(){
+        attackSound.Play();
+    }
+
     private void ResetAttack(){
         animator.SetBool("isAttacking", false);
         animator.SetBool("isWalking", true);
         alreadyAttacked = false;
-        agent.speed = 3f;
+        agent.speed = 2f;
         Invoke("ResetSpeed", 3f);
     }
 

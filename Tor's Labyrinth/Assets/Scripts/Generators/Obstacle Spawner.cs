@@ -11,7 +11,6 @@ public class ObstacleSpawner : MonoBehaviour
     void Start()
     {
         obsTemplates = GameObject.FindGameObjectWithTag("ObstaclesTemplate").GetComponent<ObstacleTemplates>();
-        print(obsTemplates);
         Spawn();
     }
 

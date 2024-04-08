@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 6403452971299098759}
   - component: {fileID: 1037302813537973214}
   - component: {fileID: 580312609917432144}
-  - component: {fileID: 6693061791394961023}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -212,6 +211,7 @@ MonoBehaviour:
   jumping: {fileID: 6403452971299098759}
   walking: {fileID: 7180240564442069900}
   killScreen: {fileID: 0}
+  winScreenHolder: {fileID: 0}
 --- !u!143 &3144656056437390364
 CharacterController:
   m_ObjectHideFlags: 0
@@ -539,19 +539,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLight: {fileID: 0}
---- !u!114 &6693061791394961023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7979882012027805332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5b5a1d7eb189b84caafb3478a1207ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
 --- !u!1001 &3218021929359147061
 PrefabInstance:
   m_ObjectHideFlags: 0

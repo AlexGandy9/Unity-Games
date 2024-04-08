@@ -4,40 +4,52 @@ using UnityEngine;
 
 public class CharacterControllerMovement : MonoBehaviour
 {
-
-    private Vector3 Velocity;
-    private Vector3 PlayerMovementInput;
-    private float xRot;
+    //Camera
     private Vector2 PlayerMouseInput;
-
-    [SerializeField] private Transform PlayerCamera;
-    private Vector3 targetPosition;
-    private Quaternion targetRotation;
+    private float xRot;
     private bool targetsSet;
+    private Quaternion targetRotation;
+    private Vector3 targetPosition;
+    [SerializeField] private Transform PlayerCamera;
     [SerializeField] private Transform PlayerEyes;
-    [SerializeField] private CharacterController Controller;
-
-    [SerializeField] private float Speed;
-    [SerializeField] private float JumpForce;
     [SerializeField] private float Sensitivity;
-    [SerializeField] private float Gravity = 9.81f;
+
+
+    //Movement
+    private Vector3 PlayerMovementInput;
+    public static bool isSneaking = false;
+    private float timeDelay = 0f;
+    [SerializeField] private CharacterController Controller;
+    [SerializeField] private float Speed;
     [SerializeField] private static Transform playerTransform;
 
-    [SerializeField] private Animator animator;
-    private float v = 0.0f;
 
+    //Jumping
+    private Vector3 Velocity;
+    private bool jump = false;
+    [SerializeField] private float JumpForce;
+    [SerializeField] private float Gravity = 9.81f;
+
+
+    //Audio
     [SerializeField] private AudioSource jumping;
     [SerializeField] private AudioSource walking;
+    [SerializeField] private AudioSource hitPlayer;
 
+
+    //Animation
+    [SerializeField] private Animator animator;
+
+
+    //Canvases
+    public static Canvas winScreen;
     [SerializeField] private Canvas killScreen;
     [SerializeField] private Canvas winScreenHolder;
-    public static Canvas winScreen;
-    public static bool isSneaking = false;
-    private bool jump = false;
+    [SerializeField] private GameObject positionArrow;
 
-    private float timeDelay = 0f;
 
-    void Awake(){
+    void Awake()
+    {
         winScreen = winScreenHolder;
         Cursor.visible = false;
 
@@ -52,13 +64,27 @@ public class CharacterControllerMovement : MonoBehaviour
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")); 
         PlayerMouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         playerTransform = transform;
-        if (!KillPlayer.isKilled){ 
-            if (!HitTrap2.isStuck){
+
+        if (!KillPlayer.isKilled && !KillPlayerMP.isKilled)
+        { 
+            if (!HitTrap2.isStuck)
+            {
                 MovePlayer();
+                positionArrow.SetActive(false);
+            }
+            else 
+            {
+                positionArrow.SetActive(true);
+                animator.SetFloat("Velocity X", 0f);
+                animator.SetFloat("Velocity Z", 0f);
             }
             MovePlayerCamera();
-        }else {
-            if (!targetsSet){
+        }
+        else 
+        {
+            if (!targetsSet)
+            {
+                hitPlayer.Play();
                 animator.SetBool("isKilled", true);
                 targetPosition = PlayerCamera.transform.position + new Vector3(0, 3, 0);
                 targetRotation = new Quaternion(0, 0, 0, 0);
@@ -70,13 +96,15 @@ public class CharacterControllerMovement : MonoBehaviour
             //In multiplayer give other player the kill screen
         }
 
-        if (targetsSet){
+        if (targetsSet)
+        {
             PlayerCamera.transform.position = Vector3.MoveTowards(PlayerCamera.transform.position, targetPosition, Time.deltaTime * 1);
         }
 
-        if (PlayerCamera.transform.position == targetPosition){
+        if (PlayerCamera.transform.position == targetPosition)
+        {
             Cursor.visible = true;
-            killScreen.gameObject.active = true;
+            killScreen.gameObject.SetActive(true);
         }
     }
 
@@ -88,7 +116,8 @@ public class CharacterControllerMovement : MonoBehaviour
             if(Controller.isGrounded)
             {
                 Velocity.y = -1f;
-                if (jump == true){
+                if (jump == true)
+                {
                     animator.SetBool("isJumping", false);
                     jumping.Play();
                     jump = false;
@@ -106,47 +135,77 @@ public class CharacterControllerMovement : MonoBehaviour
                 Velocity.y -= Gravity * 2f * Time.deltaTime;
             }
 
-            if (!HitTrap.isSlowed){
-                if(Input.GetKey(KeyCode.X)){
+            if (!HitTrap.isSlowed)
+            {
+                positionArrow.SetActive(true);
+                if(Input.GetKey(KeyCode.X))
+                {
                     Speed = 3f;
                     isSneaking = true;
                     animator.SetBool("isSneaking", true);
-                }else if (!Input.GetKey(KeyCode.X)){
-                    Speed = 5f;
+                    AnimateCharacter(MoveVector);
+                }
+                else if (!Input.GetKey(KeyCode.X) && GetInput())
+                {
+                    Speed = 5.5f;
                     PlayWalkSound(MoveVector);
                     isSneaking = false;
                     animator.SetBool("isSneaking", false);
+                    AnimateCharacter(MoveVector);
                 }
-                AnimateCharacter(MoveVector);
-
-            } else if (HitTrap.isSlowed){
+                else 
+                {
+                    animator.SetFloat("Velocity X", 0f);
+                    animator.SetFloat("Velocity Z", 0f);
+                    Speed = 0f;
+                }
+            } 
+            else if (HitTrap.isSlowed)
+            {
+                positionArrow.SetActive(true);
                 Speed = 2f;
                 isSneaking = true;
             }
             Controller.Move(MoveVector * Speed * Time.deltaTime);
             Controller.Move(Velocity * Time.deltaTime);
-        }else {
+        }
+        else 
+        {
             animator.SetFloat("Velocity X", 0f);
             animator.SetFloat("Velocity Z", 0f); 
         }
     }
 
-    private void AnimateCharacter(Vector3 MoveVector){
-        if (MoveVector == Vector3.zero){
+    private bool GetInput()
+    {
+        return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+    }
+
+    private void AnimateCharacter(Vector3 MoveVector)
+    {
+        if (MoveVector == Vector3.zero)
+        {
             timeDelay = 0f;
-        }else if (timeDelay <= 1){
+        }
+        else if (timeDelay <= 1)
+        {
             timeDelay += Time.deltaTime * 3.33f;
         }
+
         Vector3 animFloats = Vector3.Normalize(MoveVector);
         animFloats = playerTransform.InverseTransformDirection(animFloats);
         animator.SetFloat("Velocity X", animFloats.x * timeDelay);
         animator.SetFloat("Velocity Z", animFloats.z * timeDelay);
     }
 
-    private void PlayWalkSound(Vector3 MoveVector){
-        if(MoveVector.magnitude > 0 && !walking.isPlaying && Controller.isGrounded){
+    private void PlayWalkSound(Vector3 MoveVector)
+    {
+        if(MoveVector.magnitude > 0 && !walking.isPlaying && Controller.isGrounded)
+        {
             walking.Play();
-        }else if (!Controller.isGrounded || MoveVector.magnitude <= 0){
+        }
+        else if (!Controller.isGrounded || MoveVector.magnitude <= 0)
+        {
             walking.Stop();
         }
     }
@@ -155,16 +214,20 @@ public class CharacterControllerMovement : MonoBehaviour
     {
         xRot -= PlayerMouseInput.y * Sensitivity;
         transform.Rotate(0f, PlayerMouseInput.x * Sensitivity, 0f);
-        if (xRot > -83f && xRot < 83f){
+        if (xRot > -83f && xRot < 83f)
+        {
             PlayerCamera.transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
-        }else {
+        }
+        else 
+        {
             xRot += PlayerMouseInput.y * Sensitivity;
         }
 
-        PlayerCamera.transform.position = PlayerEyes.transform.position;
+        PlayerCamera.transform.position = PlayerEyes.transform.position + PlayerCamera.transform.TransformDirection(new Vector3(0, 0, 0.1f));
     }
 
-    public static void SetPos(Transform pos){
+    public static void SetPos(Transform pos)
+    {
         playerTransform.position = pos.position;
     }
 }

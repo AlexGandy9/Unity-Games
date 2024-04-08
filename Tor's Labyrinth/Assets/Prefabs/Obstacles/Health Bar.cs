@@ -47,7 +47,7 @@ public class HealthBar : MonoBehaviour
     }
 
     private void RemoveUI(){
-        canvas.gameObject.active = false;
+        canvas.gameObject.SetActive(false);
         SetSpaces(10);
     }
 }

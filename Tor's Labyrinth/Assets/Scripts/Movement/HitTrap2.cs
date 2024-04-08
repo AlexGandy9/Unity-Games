@@ -14,7 +14,7 @@ public class HitTrap2 : MonoBehaviour
 
             if (spaces.spaces <= 0){
                 isStuck = false;
-                canvas.gameObject.active = false;
+                canvas.gameObject.SetActive(false);
             }else if (spaces.spaces > 0){
                 if (Input.GetKeyDown(KeyCode.Space)){
                     spaces.RemoveSpace();
@@ -32,7 +32,7 @@ public class HitTrap2 : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if (other.CompareTag("Player")){
             isStuck = true;
-            canvas.gameObject.active = true;
+            canvas.gameObject.SetActive(true);
         }
     }
 }
