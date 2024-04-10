@@ -35,6 +35,7 @@ public class CharacterControllerMovement : MonoBehaviour
     [SerializeField] private AudioSource jumping;
     [SerializeField] private AudioSource walking;
     [SerializeField] private AudioSource hitPlayer;
+    [SerializeField] private AudioSource trapSound;
 
 
     //Animation
@@ -70,10 +71,15 @@ public class CharacterControllerMovement : MonoBehaviour
             if (!HitTrap2.isStuck)
             {
                 MovePlayer();
-                positionArrow.SetActive(false);
+                if (!HitTrap.isSlowed){
+                    positionArrow.SetActive(false);
+                }
             }
             else 
             {
+                if (!positionArrow.active){
+                    trapSound.Play();
+                }
                 positionArrow.SetActive(true);
                 animator.SetFloat("Velocity X", 0f);
                 animator.SetFloat("Velocity Z", 0f);
@@ -91,9 +97,6 @@ public class CharacterControllerMovement : MonoBehaviour
                 targetsSet = true;
                 PlayerCamera.transform.localRotation = Quaternion.Euler(90, 0, 0);
             }
-            //Change camera to view the player on the ground
-            //give user the kill screen
-            //In multiplayer give other player the kill screen
         }
 
         if (targetsSet)
@@ -137,7 +140,10 @@ public class CharacterControllerMovement : MonoBehaviour
 
             if (!HitTrap.isSlowed)
             {
-                positionArrow.SetActive(true);
+                if (!HitTrap2.isStuck){
+                    positionArrow.SetActive(false);
+                }
+                
                 if(Input.GetKey(KeyCode.X))
                 {
                     Speed = 3f;
@@ -162,10 +168,13 @@ public class CharacterControllerMovement : MonoBehaviour
             } 
             else if (HitTrap.isSlowed)
             {
+                if (!positionArrow.active){
+                    trapSound.Play();
+                }
                 positionArrow.SetActive(true);
                 Speed = 2f;
-                isSneaking = true;
             }
+
             Controller.Move(MoveVector * Speed * Time.deltaTime);
             Controller.Move(Velocity * Time.deltaTime);
         }
@@ -223,7 +232,7 @@ public class CharacterControllerMovement : MonoBehaviour
             xRot += PlayerMouseInput.y * Sensitivity;
         }
 
-        PlayerCamera.transform.position = PlayerEyes.transform.position + PlayerCamera.transform.TransformDirection(new Vector3(0, 0, 0.1f));
+        PlayerCamera.transform.position = PlayerEyes.transform.position + PlayerCamera.transform.TransformDirection(new Vector3(0, 0, 0.2f));
     }
 
     public static void SetPos(Transform pos)

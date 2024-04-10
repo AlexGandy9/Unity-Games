@@ -6,7 +6,6 @@ public class EnemyAI : MonoBehaviour
 {
     public static Animator animator;
     private NavMeshAgent agent;
-
     private Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -21,6 +20,8 @@ public class EnemyAI : MonoBehaviour
     //Attacking
     public float timeBetweenAttacks;
     public static bool alreadyAttacked;
+
+    private bool sawPlayer = false;
 
     //States
     public float sightRange, attackRange;
@@ -60,6 +61,7 @@ public class EnemyAI : MonoBehaviour
         animator.SetFloat("Velocity X", -animFloats.x);
         animator.SetFloat("Velocity Z", animFloats.z);
 
+        //Animator handlers
         if (enemyPosition == transform.position){
             animator.SetBool("isWalking", false);
             walkSound.Stop();
@@ -71,22 +73,73 @@ public class EnemyAI : MonoBehaviour
         }
         enemyPosition = transform.position;
 
-        if (Hide.hiding && !sensor.Objects.Contains(GameObject.Find("Player"))){
-            Patrolling();
-        }else if (animator.GetBool("isKilled")){
+        //If the enemy AI sees the player hiding, it will attack them. If not it will just walk past.
+        if (Hide.hiding && sensor.enabled){
+            HidingHandle();
         }else {
+            sensor.enabled = true;
+        }
+
+        //
+        if (animator.GetBool("isKilled")){}
+        else if (Hide.hiding){
+            if (!sawPlayer){
+                Patrolling();
+            }else if (sawPlayer && !playerInAttackRange){
+                ChasePlayer();
+            }else if (sawPlayer && playerInAttackRange){
+                AttackPlayer();
+            }
+        //If the player is hit by a trap the enemy AI will chase the player for the duration of the trap then go seeking them 
+        //The AI should not chase to the last seen position as this would open up the maze for the player to find the exits easily
+        }else if (HitTrap.isSlowed){
+            if (playerInAttackRange){
+                AttackPlayer();
+            }else {
+                ChasePlayer();
+            }
+        }else if (HitTrap2.isStuck){
+            if (playerInAttackRange){
+                AttackPlayer();
+            }else {
+                ChasePlayer();
+            }
+        //If none of that is true the AI will act normally and walk around the maze to find the player
+        }else if (sensor.enabled){
             if (!playerInAttackRange && !playerInSightRange && !sensor.Objects.Contains(GameObject.Find("Player"))) Patrolling();
             if (!playerInAttackRange && (playerInSightRange || sensor.Objects.Contains(GameObject.Find("Player")))) ChasePlayer();
             if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        //Error handler to navigate the maze
+        }else {
+            Patrolling();
         }
+        
+        /*if (Hide.hiding && !sensor.Objects.Contains(GameObject.Find("Player"))){
+            Patrolling();
+        }else if (animator.GetBool("isKilled")){
+        }else{
+            if (!playerInAttackRange && !playerInSightRange && !sensor.Objects.Contains(GameObject.Find("Player"))) Patrolling();
+            if (!playerInAttackRange && (playerInSightRange || sensor.Objects.Contains(GameObject.Find("Player")))) ChasePlayer();
+            if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        }*/
     }
 
-    private void Patrolling(){
-        if (!walkPointSet){
-            SearchWalkPoint();
+    private void HidingHandle(){
+        if (sensor.Objects.Contains(GameObject.Find("Player"))){
+            sawPlayer = true;
+        }else {
+            sawPlayer = false;
         }
+        sensor.enabled = false;
+    }
 
-        if (walkPointSet){
+    private void Patrolling()
+    {
+        if (!walkPointSet)
+        {
+            SearchWalkPoint();
+        }else 
+        {
             agent.SetDestination(walkPoint);
         }
 
@@ -105,7 +158,7 @@ public class EnemyAI : MonoBehaviour
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
         //ensures the AI searches a different room each walkpoint
-        while (randomZ * randomZ + randomX * randomX < 100f){
+        while (randomZ * randomZ + randomX * randomX < 120f){
             randomZ = Random.Range(-walkPointRange, walkPointRange);
             randomX = Random.Range(-walkPointRange, walkPointRange);
         }

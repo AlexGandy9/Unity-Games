@@ -36,7 +36,7 @@ public class HitTrap : MonoBehaviour
         }
     }*/
 
-    private void OnTriggerExit(Collider other){
+    private void OnTriggerEnter(Collider other){
         if (other.CompareTag("Player")){
             waitTime = 3f;
             isSlowed = true;

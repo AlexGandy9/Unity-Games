@@ -13,7 +13,7 @@ public class KillPlayerMP : MonoBehaviour
     
     private void OnTriggerEnter(Collider other){
         if (other.CompareTag("Player")){
-            if (EnemyController.animator.GetBool("isAttacking") && EnemyController.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.46f && EnemyController.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.7f){
+            if (EnemyController.animator.GetBool("isAttacking") && EnemyController.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.46f && EnemyController.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f){
                 isKilled = true;
                 EnemyController.animator.SetBool("isKilled", true);
             }

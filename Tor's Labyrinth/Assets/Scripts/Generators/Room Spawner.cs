@@ -47,7 +47,7 @@ public class RoomSpawner : MonoBehaviour
                 Instantiate(startRoom, transform.position, startRoom.transform.rotation);
                 roomsSpawned = 0;
             }
-            if ((isSpace.isSpace && roomsSpawned >= 24 && !l1)){
+            if ((isSpace.isSpace && roomsSpawned >= 15 && !l1)){
                 Instantiate(landmark1[openingDirection-1], transform.position, landmark1[openingDirection-1].transform.rotation);
                 l1 = true;
             } else if (isSpace.isSpace && l2T < 2 && Vector3.Distance(transform.position, l2Pos) > 100f){
@@ -64,12 +64,11 @@ public class RoomSpawner : MonoBehaviour
 
             spawned = true;
             roomsSpawned += 1;
-            //Destroy(gameObject);
         }
     }
 
     private void SpawnRoom(int rand){
-        if (roomsSpawned >= 150){
+        if (roomsSpawned >= 100){
             if(openingDirection == 2){
             Instantiate(bottomRooms[0], transform.position, bottomRooms[0].transform.rotation);
             }else if (openingDirection == 1){

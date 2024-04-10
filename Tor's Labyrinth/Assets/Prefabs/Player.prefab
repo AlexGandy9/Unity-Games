@@ -72,7 +72,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3063
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -202,16 +202,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 162866839080646809}
   PlayerEyes: {fileID: 0}
+  Sensitivity: 3
   Controller: {fileID: 3144656056437390364}
   Speed: 5.5
   JumpForce: 8
-  Sensitivity: 3
   Gravity: 9.81
-  animator: {fileID: 6874835240885932525}
   jumping: {fileID: 6403452971299098759}
   walking: {fileID: 7180240564442069900}
+  hitPlayer: {fileID: 0}
+  animator: {fileID: 6874835240885932525}
   killScreen: {fileID: 0}
   winScreenHolder: {fileID: 0}
+  positionArrow: {fileID: 0}
 --- !u!143 &3144656056437390364
 CharacterController:
   m_ObjectHideFlags: 0

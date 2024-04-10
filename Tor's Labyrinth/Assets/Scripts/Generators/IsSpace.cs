@@ -6,7 +6,7 @@ public class IsSpace : MonoBehaviour
 {
     public bool isSpace;
 
-    void LateUpdate(){
+    void Awake(){
         isSpace = true;
     }
     private void OnTriggerEnter(Collider other){

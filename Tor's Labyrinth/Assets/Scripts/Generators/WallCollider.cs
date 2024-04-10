@@ -6,7 +6,7 @@ public class WallCollider : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {  
-        if (other.CompareTag("Wall") || other.CompareTag("Floor"))
+        if (other.CompareTag("Wall") || other.gameObject.name == "Floor")
             { 
                 if (gameObject.GetInstanceID() < other.gameObject.GetInstanceID())
                 {
