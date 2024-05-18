@@ -6,12 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Homepage.unity
+    path: Assets/Final/Scenes/Homepage.unity
     guid: 89f2ef5de910b054f9748abff3eed523
   - enabled: 1
-    path: Assets/Scenes/Singleplayer.unity
+    path: Assets/Final/Scenes/Multiplayer.unity
+    guid: e4b633e81fa462546a90da5b55e1ca6e
+  - enabled: 1
+    path: Assets/Final/Scenes/SingleHomepage.unity
+    guid: 6a0e278766201c7409e492d440bd9d14
+  - enabled: 1
+    path: Assets/Final/Scenes/SingleplayerEasy.unity
+    guid: a6b5108c2099c984ca5cbd36ca80a011
+  - enabled: 1
+    path: Assets/Final/Scenes/SingleplayerHard.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Multiplayer.unity
-    guid: 7cfab01633794d7479a789a56ab15a19
+    path: Assets/Final/Scenes/SingleplayerMoving.unity
+    guid: e15387163d9162c4e981e38fbbfb2d73
+  - enabled: 1
+    path: Assets/Final/Scenes/MultiHomepage.unity
+    guid: b3bc3ca1304607848ba0ac64ac61e472
   m_configObjects: {}
